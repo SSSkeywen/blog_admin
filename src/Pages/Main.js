@@ -2,17 +2,19 @@
  * @Author: mikey.wf 
  * @Date: 2020-10-13 14:31:20 
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-10-13 15:23:13
+ * @Last Modified time: 2020-10-13 16:47:29
  */
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Login from './Login'
+import AdminIndex from './AdminIndex'
 
 
 function Main() {
   return (
     <Router>
       <Route path="/login/" exact component={Login} />
+      <Route path="/index/" exact component={AdminIndex} />
     </Router>
   )
 }

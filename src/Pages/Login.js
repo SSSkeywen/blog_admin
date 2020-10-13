@@ -2,9 +2,11 @@
  * @Author: mikey.wf 
  * @Date: 2020-10-13 14:30:25 
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-10-13 15:31:22
+ * @Last Modified time: 2020-10-13 17:12:10
  */
 import React, { useState } from 'react';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom'
+
 import 'antd/dist/antd.css'
 import { Card, Input, Button, Spin } from 'antd'
 import {
@@ -12,7 +14,7 @@ import {
 } from '@ant-design/icons';
 import '../static/css/Login.scss'
 
-function Login() {
+function Login(props) {
 
   const [userName, setUserName] = useState('')
   const [passWord, setPassWord] = useState('')
@@ -21,6 +23,7 @@ function Login() {
   const checkLogin = () => {
     setIsLoading(true)
     setTimeout(() => {
+      props.history.push('/index')
       setIsLoading(false)
     }, 1000)
   }
@@ -54,4 +57,4 @@ function Login() {
   )
 }
 
-export default Login
+export default withRouter(Login)
