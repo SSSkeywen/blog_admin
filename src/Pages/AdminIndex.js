@@ -2,7 +2,7 @@
  * @Author: mikey.wf
  * @Date: 2020-10-13 15:52:58
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-10-13 17:13:58
+ * @Last Modified time: 2020-11-02 14:27:10
  */
 import React, { useState } from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd';
@@ -10,7 +10,7 @@ import {
   DesktopOutlined,
   PieChartOutlined,
   FileOutlined,
-  TeamOutlined,
+  // TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import '../static/css/AdminIndex.scss'
@@ -38,7 +38,7 @@ function AdminIndex() {
             </Menu.Item>
           <SubMenu key="sub1" icon={<UserOutlined />} title="文章管理">
             <Menu.Item key="3">添加文章</Menu.Item>
-            <Menu.Item key="4">删除文章</Menu.Item>
+            <Menu.Item key="4">文章列表</Menu.Item>
           </SubMenu>
           <Menu.Item key="9" icon={<FileOutlined />} >留言管理</Menu.Item>
         </Menu>
@@ -50,11 +50,11 @@ function AdminIndex() {
             <Breadcrumb.Item>后台管理系统</Breadcrumb.Item>
             <Breadcrumb.Item>工作台</Breadcrumb.Item>
           </Breadcrumb>
-          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+          <div className="site-layout-background" style={{ padding: 24, minHeight: 360, background: '#fff' }}>
             博客管理系统
             </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Jspang.com</Footer>
+        <Footer style={{ textAlign: 'center' }}>Wenfei.com</Footer>
       </Layout>
     </Layout>
   );
