@@ -2,7 +2,7 @@
  * @Author: mikey.wf
  * @Date: 2020-10-13 15:52:58
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-11-03 10:40:43
+ * @Last Modified time: 2020-11-06 08:54:41
  */
 import React, { useState } from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd';
@@ -17,7 +17,7 @@ import '../static/css/AdminIndex.scss'
 import { Route } from 'react-router-dom'
 import AddArticle from './AddArticle'
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 function AdminIndex() {

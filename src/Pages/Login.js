@@ -2,7 +2,7 @@
  * @Author: mikey.wf 
  * @Date: 2020-10-13 14:30:25 
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-11-03 16:46:33
+ * @Last Modified time: 2020-11-06 09:04:40
  */
 import React, { useState } from 'react';
 // eslint-disable-next-line
@@ -64,7 +64,6 @@ function Login(props) {
       }
     )
   }
-
   return (
     <div className="login-div">
 
@@ -82,6 +81,11 @@ function Login(props) {
             id="passWord"
             size="large"
             placeholder="Enter your passWord"
+            onKeyUp={(e) => {
+              if (e.keyCode === 13) {
+                checkLogin()
+              }
+            }}
             prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
             onChange={(e) => { setPassWord(e.target.value) }}
           />
