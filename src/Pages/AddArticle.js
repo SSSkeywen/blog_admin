@@ -2,7 +2,7 @@
  * @Author: mikey.wf 
  * @Date: 2020-11-02 15:07:10 
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-11-09 17:51:47
+ * @Last Modified time: 2020-11-10 17:11:54
  */
 import React, { useState, useEffect } from 'react';
 import marked from 'marked'
@@ -13,7 +13,7 @@ import servicePath from '../config/apiUrl'
 const { Option } = Select
 const { TextArea } = Input
 
-function AddArticle(props) {
+function AddArticle (props) {
 
   const [articleId, setArticleId] = useState(0)  // 文章的ID，如果是0说明是新增加，如果不是0，说明是修改
   const [articleTitle, setArticleTitle] = useState('')   //文章标题
@@ -22,12 +22,13 @@ function AddArticle(props) {
   const [introducemd, setIntroducemd] = useState()            //简介的markdown内容
   const [introducehtml, setIntroducehtml] = useState('等待编辑') //简介的html内容
   const [showDate, setShowDate] = useState()   //发布日期
-  const [updateDate, setUpdateDate] = useState() //修改日志的日期
+  // const [updateDate, setUpdateDate] = useState() //修改日志的日期
   const [typeInfo, setTypeInfo] = useState([]) // 文章类别信息
   const [selectedType, setSelectType] = useState(1) //选择的文章类别
 
   useEffect(() => {
     getTypeInfo()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   marked.setOptions({
@@ -92,19 +93,20 @@ function AddArticle(props) {
       message.error('发布日期不能为空')
       return false
     }
-    message.success('检验通过')
     let dataProps = {}
     dataProps.type_id = selectedType
     dataProps.title = articleTitle
     dataProps.article_content = articleContent
     dataProps.introduce = introducemd
     let dateText = showDate.replace('-', '/')
+    dataProps.addTimenew = (new Date(dateText).getTime()) / 1000
     dataProps.addTime = (new Date(dateText).getTime()) / 1000
     if (articleId === 0) {
       dataProps.view_count = 0
       axios({
         method: 'post',
         url: servicePath.addArticle,
+        header: { 'Access-Control-Allow-Origin': '*' },
         data: dataProps,
         withCredentials: true
       }).then(res => {
@@ -113,6 +115,21 @@ function AddArticle(props) {
           message.success('文章保存成功')
         } else {
           message.error('文章保存失败')
+        }
+      })
+    } else {
+      dataProps.id = articleId
+      axios({
+        method: 'post',
+        url: servicePath.updateArticle,
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        data: dataProps,
+        withCredentials: true
+      }).then(res => {
+        if (res.data.isSuccess) {
+          message.success('文章修改成功')
+        } else {
+          message.error('修改失败');
         }
       })
     }
