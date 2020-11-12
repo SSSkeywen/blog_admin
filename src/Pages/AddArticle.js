@@ -2,18 +2,19 @@
  * @Author: mikey.wf 
  * @Date: 2020-11-02 15:07:10 
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-11-10 17:11:54
+ * @Last Modified time: 2020-11-12 15:12:03
  */
 import React, { useState, useEffect } from 'react';
 import marked from 'marked'
 import '../static/css/AddArticle.scss'
 import { Row, Col, Input, Select, Button, DatePicker, message } from 'antd'
 import axios from 'axios'
-import servicePath from '../config/apiUrl'
+import servicePath, { $get } from '../config/apiUrl'
+import moment from 'moment';
 const { Option } = Select
 const { TextArea } = Input
 
-function AddArticle (props) {
+function AddArticle(props) {
 
   const [articleId, setArticleId] = useState(0)  // 文章的ID，如果是0说明是新增加，如果不是0，说明是修改
   const [articleTitle, setArticleTitle] = useState('')   //文章标题
@@ -28,8 +29,32 @@ function AddArticle (props) {
 
   useEffect(() => {
     getTypeInfo()
+
+    let tmpId = props.match.params.id
+    if (tmpId) {
+      setArticleId(tmpId)
+      getArticleById(tmpId)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const getArticleById = (id) => {
+    $get(servicePath.getArticleById + id).then(
+      res => {
+        console.log(res)
+        let articleData = res.data.data[0]
+        setArticleTitle(articleData.title)
+        setArticleContent(articleData.article_content)
+        let html = marked(articleData.article_content)
+        setMarkdownContent(html)
+        setIntroducemd(articleData.introduce)
+        let tmpInt = marked(articleData.introduce)
+        setIntroducehtml(tmpInt)
+        setShowDate(res.data.data[0].addTime)
+        setSelectType(res.data.data[0].typeId)
+      }
+    )
+  }
 
   marked.setOptions({
     renderer: marked.Renderer(),
@@ -148,7 +173,7 @@ function AddArticle (props) {
             </Col>
             <Col span={4}>
               &nbsp;
-              <Select defaultValue={selectedType} size="large" onChange={selectTypeHandler}>
+              <Select value={selectedType} defaultValue={selectedType} size="large" onChange={selectTypeHandler}>
                 {
                   typeInfo.map((item, index) => {
                     return (<Option key={index} value={item.Id}>{item.typeName}</Option>)
@@ -163,6 +188,7 @@ function AddArticle (props) {
               <TextArea
                 className="markdown-content"
                 rows={35}
+                value={articleContent}
                 placeholder="文章内容"
                 onChange={changeContent}
               />
@@ -185,6 +211,7 @@ function AddArticle (props) {
               <br />
               <TextArea
                 rows={4}
+                value={introducemd}
                 onChange={changeIntroduce}
                 placeholder="文章简介"
               ></TextArea>
@@ -201,6 +228,7 @@ function AddArticle (props) {
                   }}
                   placeholder="发布日期"
                   size="large"
+                  value={moment(showDate)}
                 />
               </div>
             </Col>

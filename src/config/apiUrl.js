@@ -2,8 +2,19 @@
  * @Author: mikey.wf 
  * @Date: 2020-11-03 15:46:22 
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-11-10 17:56:08
+ * @Last Modified time: 2020-11-12 14:31:38
  */
+import axios from 'axios'
+
+const http = axios.create({
+  timeout: 1000 * 30,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8;multipart/form-data'
+  }
+})
+
+
 let ipUrl = 'http://127.0.0.1:7001/admin/'
 
 let servicePath = {
@@ -11,8 +22,18 @@ let servicePath = {
   getTypeInfo: ipUrl + 'getTypeInfo', // 获得文章类别信息
   addArticle: ipUrl + 'addArticle', // 添加文章
   updateArticle: ipUrl + 'updateArticle', // 修改文章
-  getArticleList: ipUrl + 'getArticleList', // 修改文章
+  getArticleList: ipUrl + 'getArticleList', // 文章列表
   delArticle: ipUrl + 'delArticle/', // 删除文章
+  getArticleById: ipUrl + 'getArticleById/', // 根据ID获得文章详情
 }
 
+const $get = function (url, params) {
+  return http({
+    method: 'get',
+    url,
+    params: params
+  })
+}
+
+export { $get }
 export default servicePath

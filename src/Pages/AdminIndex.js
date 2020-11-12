@@ -2,9 +2,11 @@
  * @Author: mikey.wf
  * @Date: 2020-10-13 15:52:58
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-11-10 17:47:14
+ * @Last Modified time: 2020-11-12 15:31:26
  */
 import React, { useState } from 'react'
+// eslint-disable-next-line
+import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
   DesktopOutlined,
@@ -29,8 +31,8 @@ function AdminIndex(props) {
   };
 
   const handleClickArticle = e => {
-    console.log(e.item.props)
-    if (e.key === 'addArticle') {
+    console.log(props.history)
+    if (e.key === '/index/add') {
       props.history.push('/index/add')
     } else {
       props.history.push('/index/list')
@@ -41,16 +43,20 @@ function AdminIndex(props) {
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
         <div className="logo" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+        <Menu theme="dark"
+          selectedKeys={[props.history.location.pathname]}
+          defaultSelectedKeys={['1']}
+          onClick={handleClickArticle}
+          mode="inline">
           <Menu.Item key="1" icon={<PieChartOutlined />}>
             工作台
             </Menu.Item>
           <Menu.Item key="2" icon={<DesktopOutlined />}>
             添加文章
             </Menu.Item>
-          <SubMenu key="sub1" onClick={handleClickArticle} icon={<UserOutlined />} title="文章管理">
-            <Menu.Item key="addArticle">添加文章</Menu.Item>
-            <Menu.Item key="articleList">文章列表</Menu.Item>
+          <SubMenu key="sub1" icon={<UserOutlined />} title="文章管理">
+            <Menu.Item key="/index/add">添加文章</Menu.Item>
+            <Menu.Item key="/index/list">文章列表</Menu.Item>
           </SubMenu>
           <Menu.Item key="9" icon={<FileOutlined />} >留言管理</Menu.Item>
         </Menu>
@@ -77,4 +83,4 @@ function AdminIndex(props) {
   );
 }
 
-export default AdminIndex
+export default withRouter(AdminIndex)
