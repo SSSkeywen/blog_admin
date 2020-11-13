@@ -2,7 +2,7 @@
  * @Author: mikey.wf 
  * @Date: 2020-11-02 15:07:10 
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-11-12 17:07:16
+ * @Last Modified time: 2020-11-13 14:05:08
  */
 import React, { useState, useEffect } from 'react';
 import marked from 'marked'
@@ -41,7 +41,6 @@ function AddArticle(props) {
   const getArticleById = (id) => {
     $get(servicePath.getArticleById + id).then(
       res => {
-        console.log(res)
         let articleData = res.data.data[0]
         setArticleTitle(articleData.title)
         setArticleContent(articleData.article_content)

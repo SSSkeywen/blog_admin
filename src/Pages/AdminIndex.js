@@ -2,7 +2,7 @@
  * @Author: mikey.wf
  * @Date: 2020-10-13 15:52:58
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-11-12 15:31:26
+ * @Last Modified time: 2020-11-13 14:05:14
  */
 import React, { useState } from 'react'
 // eslint-disable-next-line
@@ -31,7 +31,6 @@ function AdminIndex(props) {
   };
 
   const handleClickArticle = e => {
-    console.log(props.history)
     if (e.key === '/index/add') {
       props.history.push('/index/add')
     } else {
