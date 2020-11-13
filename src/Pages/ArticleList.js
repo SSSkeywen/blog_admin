@@ -2,7 +2,7 @@
  * @Author: mikey.wf 
  * @Date: 2020-11-10 11:03:49 
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-11-12 14:33:30
+ * @Last Modified time: 2020-11-12 17:09:28
  */
 import React, { useState, useEffect } from 'react';
 import '../static/css/ArticleList.scss'
@@ -15,7 +15,7 @@ import {
   Table,
   // Switch
 } from 'antd';
-import axios from 'axios'
+// import axios from 'axios'
 import servicePath, { $get } from '../config/apiUrl'
 const { confirm } = Modal
 
@@ -40,7 +40,7 @@ function ArticleList(props) {
       title: '确定要删除这篇博客文章吗?',
       content: '如果你点击OK按钮，文章将会永远被删除，无法恢复。',
       onOk() {
-        axios(servicePath.delArticle + id, { withCredentials: true }).then(
+        $get(servicePath.delArticle + id).then(
           res => {
             message.success('文章删除成功')
             getList()
