@@ -2,7 +2,7 @@
  * @Author: mikey.wf 
  * @Date: 2020-10-13 14:30:25 
  * @Last Modified by: mikey.wf
- * @Last Modified time: 2020-11-06 09:04:40
+ * @Last Modified time: 2021-01-11 15:32:42
  */
 import React, { useState } from 'react';
 // eslint-disable-next-line
@@ -17,7 +17,7 @@ import '../static/css/Login.scss'
 import axios from 'axios'
 import servicePath from '../config/apiUrl'
 
-function Login(props) {
+function Login (props) {
   // eslint-disable-next-line
   const [userName, setUserName] = useState('')
   // eslint-disable-next-line
@@ -66,7 +66,6 @@ function Login(props) {
   }
   return (
     <div className="login-div">
-
       <Spin tip="Loading..." spinning={isLoading}>
         <Card title="Baimantou blog System" bordered={true} style={{ width: 400 }}>
           <Input
